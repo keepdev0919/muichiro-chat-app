@@ -16,35 +16,33 @@ class _LoginSignupScreenState extends State<LoginSignupScreen> {
       backgroundColor: Palette.backgroundColor,
       body: Stack(
         children: [
-          Positioned(
-            top: 0,
-            right: 0,
-            left: 0,
+          // 배경 이미지 - 화면 전체를 꽉 채움
+          Positioned.fill( //positioned는 child 무조건 있어야함
             child: Container(
-              height: 300,
               decoration: BoxDecoration(
                 image: DecorationImage(
-                    image: AssetImage('image/red.jpg'), fit: BoxFit.fill),
+                    image: AssetImage('image/무이치로.png'), 
+                    fit: BoxFit.cover),
               ),
               child: Container(
                 padding: EdgeInsets.only(top: 90, left: 20),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    RichText(
+                    RichText( //richtext는 텍스트를 여러 스타일로 변경할 수 있음
                       text: TextSpan(
-                        text: 'Welcome',
+                        text: '안녕하세요!',
                         style: TextStyle(
                             letterSpacing: 1.0,
                             fontSize: 25,
-                            color: Colors.white),
+                            color: Palette.activeColor),
                         children: [
                           TextSpan(
-                            text: isSignupScreen ? ' to Yummy chat!' : ' back',
+                            text: isSignupScreen ? ' 저는 무이치로 입니다' : ' 반가워요',
                             style: TextStyle(
                               letterSpacing: 1.0,
                               fontSize: 25,
-                              color: Colors.white,
+                              color: Palette.activeColor,
                               fontWeight: FontWeight.bold,
                             ),
                           ),
@@ -58,7 +56,7 @@ class _LoginSignupScreenState extends State<LoginSignupScreen> {
                       isSignupScreen ? 'Signup to continue' : 'Signin to continue',
                       style: TextStyle(
                         letterSpacing: 1.0,
-                        color: Colors.white,
+                        color: Palette.activeColor,
                       ),
                     ),
                   ],
@@ -70,7 +68,7 @@ class _LoginSignupScreenState extends State<LoginSignupScreen> {
           AnimatedPositioned(
             duration: Duration(milliseconds: 500),
             curve: Curves.easeIn,
-            top: 180,
+            top: MediaQuery.of(context).size.height * 0.4, // 화면 하단으로 이동
             child: AnimatedContainer(
               duration: Duration(milliseconds: 500),
               curve: Curves.easeIn,
@@ -79,7 +77,7 @@ class _LoginSignupScreenState extends State<LoginSignupScreen> {
               width: MediaQuery.of(context).size.width - 40,
               margin: EdgeInsets.symmetric(horizontal: 20.0),
               decoration: BoxDecoration(
-                color: Colors.white,
+                color: Colors.white.withOpacity(0.9), // 투명도 추가
                 borderRadius: BorderRadius.circular(15.0),
                 boxShadow: [
                   BoxShadow(
@@ -111,11 +109,12 @@ class _LoginSignupScreenState extends State<LoginSignupScreen> {
                                       : Palette.textColor1),
                             ),
                             if (!isSignupScreen)
+                            // 선택된 화면일 때 선 표시
                               Container(
                                 margin: EdgeInsets.only(top: 3),
                                 height: 2,
                                 width: 55,
-                                color: Colors.orange,
+                                color: Colors.blue[400],
                               )
                           ],
                         ),
@@ -142,7 +141,7 @@ class _LoginSignupScreenState extends State<LoginSignupScreen> {
                                 margin: EdgeInsets.only(top: 3),
                                 height: 2,
                                 width: 55,
-                                color: Colors.orange,
+                                color: Colors.blue[400],
                               )
                           ],
                         ),
@@ -168,6 +167,7 @@ class _LoginSignupScreenState extends State<LoginSignupScreen> {
                                     Radius.circular(35.0),
                                   ),
                                 ),
+                                //focusedborder는 포커스되었을 때도 enabledborder와 동일한 스타일로 표시하려고 사용
                                 focusedBorder: OutlineInputBorder(
                                   borderSide:
                                       BorderSide(color: Palette.textColor1),
@@ -311,7 +311,7 @@ class _LoginSignupScreenState extends State<LoginSignupScreen> {
           AnimatedPositioned(
             duration: Duration(milliseconds: 500),
             curve: Curves.easeIn,
-            top: isSignupScreen ? 430 : 390,
+            top: isSignupScreen ? MediaQuery.of(context).size.height * 0.4 + 280 + 20 : MediaQuery.of(context).size.height * 0.4 + 250 + 20,
             right: 0,
             left: 0,
             child: Center(
@@ -325,7 +325,7 @@ class _LoginSignupScreenState extends State<LoginSignupScreen> {
                 child: Container(
                   decoration: BoxDecoration(
                     gradient: LinearGradient(
-                        colors: [Colors.orange, Colors.red],
+                        colors: [Colors.blue[300]!, Colors.blue[600]!],
                         begin: Alignment.topLeft,
                         end: Alignment.bottomRight),
                     borderRadius: BorderRadius.circular(30),
@@ -353,19 +353,29 @@ class _LoginSignupScreenState extends State<LoginSignupScreen> {
             left: 0,
             child: Column(
               children: [
-                Text(isSignupScreen ? 'or Signup with' : 'or Signin with'),
+                Container(
+                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+                  decoration: BoxDecoration(
+                    color: Colors.black.withOpacity(0.3),
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: Text(
+                    isSignupScreen ? 'or Signup with' : 'or Signin with',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                ),
                 SizedBox(
                   height: 10,
                 ),
                 TextButton.icon(
                   onPressed: (){},
                   style: TextButton.styleFrom(
-                    primary: Colors.white,
+                    foregroundColor: Colors.white,
                     minimumSize: Size(155, 40),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20)
                     ),
-                    backgroundColor: Palette.googleColor
+                    backgroundColor: Colors.blue[500]
                   ),
                   icon: Icon(Icons.add),
                   label: Text('Google'),
