@@ -13,7 +13,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Chatting app',
       theme: ThemeData(
-        primarySwatch: Colors.blue
+        primarySwatch: Colors.blue,
+        fontFamily: 'YeongwolTTF', // 전체 앱에 YeongwolTTF 폰트 적용
       ),
       home: LoginSignupScreen(),
     );

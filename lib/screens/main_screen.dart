@@ -21,7 +21,7 @@ class _LoginSignupScreenState extends State<LoginSignupScreen> {
             child: Container(
               decoration: BoxDecoration(
                 image: DecorationImage(
-                    image: AssetImage('image/무이치로.png'), 
+                    image: AssetImage('assets/images/무이치로.png'), 
                     fit: BoxFit.cover),
               ),
               child: Container(
@@ -29,32 +29,21 @@ class _LoginSignupScreenState extends State<LoginSignupScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    RichText( //richtext는 텍스트를 여러 스타일로 변경할 수 있음
-                      text: TextSpan(
-                        text: '안녕하세요!',
-                        style: TextStyle(
-                            letterSpacing: 1.0,
-                            fontSize: 25,
-                            color: Palette.activeColor),
-                        children: [
-                          TextSpan(
-                            text: isSignupScreen ? ' 저는 무이치로 입니다' : ' 반가워요',
-                            style: TextStyle(
-                              letterSpacing: 1.0,
-                              fontSize: 25,
-                              color: Palette.activeColor,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ],
+                    Text(
+                      '방해되니까 얼른 도망쳐주지 않을래?',
+                      style: TextStyle(
+                        letterSpacing: 1.0,
+                        fontSize: 30,
+                        color: Palette.activeColor,
                       ),
                     ),
                     SizedBox(
                       height: 5.0,
                     ),
                     Text(
-                      isSignupScreen ? 'Signup to continue' : 'Signin to continue',
+                      isSignupScreen ? 'Signup to continue' : 'Login to continue',
                       style: TextStyle(
+                        fontSize: 20,
                         letterSpacing: 1.0,
                         color: Palette.activeColor,
                       ),
@@ -311,7 +300,7 @@ class _LoginSignupScreenState extends State<LoginSignupScreen> {
           AnimatedPositioned(
             duration: Duration(milliseconds: 500),
             curve: Curves.easeIn,
-            top: isSignupScreen ? MediaQuery.of(context).size.height * 0.4 + 280 + 20 : MediaQuery.of(context).size.height * 0.4 + 250 + 20,
+            top: isSignupScreen ? MediaQuery.of(context).size.height * 0.4 + 230 + 10 : MediaQuery.of(context).size.height * 0.4 + 200 + 10,
             right: 0,
             left: 0,
             child: Center(
@@ -348,7 +337,7 @@ class _LoginSignupScreenState extends State<LoginSignupScreen> {
           ),
           //전송버튼
           Positioned(
-            top: MediaQuery.of(context).size.height - 125,
+            top: isSignupScreen ? MediaQuery.of(context).size.height * 0.4 + 280 + 10 + 90 + 20 : MediaQuery.of(context).size.height * 0.4 + 250 + 10 + 90 + 20,
             right: 0,
             left: 0,
             child: Column(
@@ -360,8 +349,11 @@ class _LoginSignupScreenState extends State<LoginSignupScreen> {
                     borderRadius: BorderRadius.circular(20),
                   ),
                   child: Text(
-                    isSignupScreen ? 'or Signup with' : 'or Signin with',
-                    style: TextStyle(color: Colors.white),
+                    isSignupScreen ? 'or Signup with' : 'or Login with',
+                    style: TextStyle(
+                      fontSize: 16, // fontSize를 TextStyle 안으로 이동
+                      color: Colors.white
+                    ),
                   ),
                 ),
                 SizedBox(
@@ -378,7 +370,11 @@ class _LoginSignupScreenState extends State<LoginSignupScreen> {
                     backgroundColor: Colors.blue[500]
                   ),
                   icon: Icon(Icons.add),
-                  label: Text('Google'),
+                  label: Text(
+                    'Google',
+                    style: TextStyle(
+                    ),
+                  ),
                 ),
               ],
             ),
