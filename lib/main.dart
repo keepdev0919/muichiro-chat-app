@@ -1,8 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:yummy_chat_lecture1/screens/main_screen.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:muichiro_chat_app/screens/main_screen.dart';
+import 'firebase_options.dart';
 
-void main() {
-  runApp(MyApp());
+/// 앱의 진입점
+/// Firebase를 초기화하고 MyApp을 실행합니다.
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  // Firebase 초기화 - 플랫폼별 설정을 자동으로 적용
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {

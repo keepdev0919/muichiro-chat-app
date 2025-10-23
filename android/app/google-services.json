@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "942044545893",
+    "project_id": "chating-app-f768f",
+    "storage_bucket": "chating-app-f768f.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:942044545893:android:32748e6eb07266d65f978c",
+        "android_client_info": {
+          "package_name": "com.example.muichiroChatApp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBgT-4dODG6HqUZnAkSsmjFpFxDSLDnSRU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

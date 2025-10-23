@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:yummy_chat_lecture1/config/palette.dart';
+import 'package:muichiro_chat_app/config/palette.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:muichiro_chat_app/screens/chat_screen.dart';
 
 class LoginSignupScreen extends StatefulWidget {
   const LoginSignupScreen({Key? key}) : super(key: key);
@@ -9,11 +11,14 @@ class LoginSignupScreen extends StatefulWidget {
 }
 
 class _LoginSignupScreenState extends State<LoginSignupScreen> {
+  final _authentication = FirebaseAuth.instance;
+
+
   bool isSignupScreen = true;
   final _formKey = GlobalKey<FormState>();
   String username = '';
-  String email = '';
-  String password = '';
+  String useremail = '';
+  String userpassword = '';
   
   void _tryValidation() {
     final isValid = _formKey.currentState!.validate();
@@ -173,6 +178,9 @@ class _LoginSignupScreenState extends State<LoginSignupScreen> {
                                 onSaved: (value) {
                                   username = value!;
                                 },
+                                onChanged: (value) {
+                                  username = value;
+                                },
                                 decoration: InputDecoration(
                                     prefixIcon: Icon(
                                       Icons.account_circle,
@@ -212,8 +220,12 @@ class _LoginSignupScreenState extends State<LoginSignupScreen> {
                                   return null;
                                 },
                                 onSaved: (value) {
-                                  email = value!;
+                                  useremail = value!;
                                 },
+                                // onChanged는 제거 - onSaved만으로 충분함
+                                // onChanged: (value) {
+                                //   useremail = value;
+                                // },
                                 decoration: InputDecoration(
                                     prefixIcon: Icon(
                                       Icons.email,
@@ -233,7 +245,7 @@ class _LoginSignupScreenState extends State<LoginSignupScreen> {
                                         Radius.circular(35.0),
                                       ),
                                 ),
-                                hintText: 'email',
+                                hintText: 'User email',
                                 hintStyle: TextStyle(
                                     fontSize: 18, color: Palette.textColor1),
                                 errorStyle: TextStyle(
@@ -244,41 +256,46 @@ class _LoginSignupScreenState extends State<LoginSignupScreen> {
                             height: 8,
                           ),
                           TextFormField(
+                            obscureText: true, // 비밀번호 숨김 처리
                             key: ValueKey(3),
-                                onSaved: (value) {
-                                  password = value!;
-                                },
-                                validator: (value) {
-                                  if(value!.isEmpty || value.length < 6) {
-                                    return '비밀번호는 최소 6자 이상 입력해야합니다';
-                                  }
-                                  return null;
-                                },
-                                decoration: InputDecoration(
-                                    prefixIcon: Icon(
-                                      Icons.lock,
-                                      color: Palette.iconColor,
-                                    ),
-                                    enabledBorder: OutlineInputBorder(
-                                      borderSide:
-                                          BorderSide(color: Palette.textColor1),
-                                      borderRadius: BorderRadius.all(
-                                        Radius.circular(35.0),
-                                      ),
-                                    ),
-                                    focusedBorder: OutlineInputBorder(
-                                      borderSide:
-                                          BorderSide(color: Palette.textColor1),
-                                      borderRadius: BorderRadius.all(
-                                        Radius.circular(35.0),
-                                      ),
+                            onSaved: (value) {
+                              userpassword = value!;
+                            },
+                            // onChanged는 제거 - onSaved만으로 충분함
+                            // onChanged: (value) {
+                            //   userpassword = value;
+                            // },
+                            validator: (value) {
+                              if(value!.isEmpty || value.length < 6) {
+                                return '비밀번호는 최소 6자 이상 입력해야합니다';
+                              }
+                              return null;
+                            },
+                            decoration: InputDecoration(
+                                prefixIcon: Icon(
+                                  Icons.lock,
+                                  color: Palette.iconColor,
                                 ),
-                                hintText: 'password',
-                                hintStyle: TextStyle(
-                                    fontSize: 18, color: Palette.textColor1),
-                                errorStyle: TextStyle(
-                                    fontSize: 20, color: Colors.red), // 에러 텍스트 크기 키움
-                                contentPadding: EdgeInsets.all(10)),
+                                enabledBorder: OutlineInputBorder(
+                                  borderSide:
+                                      BorderSide(color: Palette.textColor1),
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(35.0),
+                                  ),
+                                ),
+                                focusedBorder: OutlineInputBorder(
+                                  borderSide:
+                                      BorderSide(color: Palette.textColor1),
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(35.0),
+                                  ),
+                            ),
+                            hintText: 'User password',
+                            hintStyle: TextStyle(
+                                fontSize: 18, color: Palette.textColor1),
+                            errorStyle: TextStyle(
+                                fontSize: 20, color: Colors.red), // 에러 텍스트 크기 키움
+                            contentPadding: EdgeInsets.all(10)),
                           )
                         ],
                       ),
@@ -300,7 +317,10 @@ class _LoginSignupScreenState extends State<LoginSignupScreen> {
                                   return null;
                                 },
                                 onSaved: (value) {
-                                  email = value!;
+                                  useremail = value!;
+                                },
+                                onChanged: (value) {
+                                  useremail = value;
                                 },
                                 decoration: InputDecoration(
                                     prefixIcon: Icon(
@@ -321,7 +341,7 @@ class _LoginSignupScreenState extends State<LoginSignupScreen> {
                                         Radius.circular(35.0),
                                       ),
                                 ),
-                                hintText: 'email',
+                                hintText: 'User email',
                                 hintStyle: TextStyle(
                                     fontSize: 18, color: Palette.textColor1),
                                 errorStyle: TextStyle(
@@ -333,12 +353,17 @@ class _LoginSignupScreenState extends State<LoginSignupScreen> {
                           ),
                           TextFormField(
                             key: ValueKey(5),
+                                obscureText: true, // 비밀번호 숨김 처리
                                 onSaved: (value) {
-                                  password = value!;
+                                  userpassword = value!;
                                 },
+                                // onChanged는 제거 - onSaved만으로 충분함
+                                // onChanged: (value) {
+                                //   userpassword = value;
+                                // },
                                 validator: (value) {
                                   if(value!.isEmpty || value.length < 6) {
-                                    return '비밀번호는 최소 6자 이상 입력해야합니다';
+                                    return '비밀번호는 최소 6자 이상 입력해야합니다'; // 파베 authentication 사용할경우에는 비밀번호가 최소 6자 이상이어야함.
                                   }
                                   return null;
                                 },
@@ -361,7 +386,7 @@ class _LoginSignupScreenState extends State<LoginSignupScreen> {
                                         Radius.circular(35.0),
                                       ),
                                 ),
-                                hintText: 'password',
+                                hintText: 'User password',
                                 hintStyle: TextStyle(
                                     fontSize: 18, color: Palette.textColor1),
                                 errorStyle: TextStyle(
@@ -386,8 +411,45 @@ class _LoginSignupScreenState extends State<LoginSignupScreen> {
               right: 0,
               left: 0,
               child: GestureDetector(
-                onTap: (){
+                onTap: () async {
+                  if(isSignupScreen) {
+                  _tryValidation(); // signup의 유저네임, 이메일, 패스워드의 유효성 검사를 실시하여 모든값이 유효하면 onSaved함수를 통해 각 변수에 해당 유저가 작성한 값을 저장함.
+                  
+                  try {
+                    final newUser = await _authentication.createUserWithEmailAndPassword(
+                    email: useremail, 
+                    password: userpassword
+                    );
+
+                    if (newUser.user != null) {
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => ChatScreen()));
+                    } 
+                  } catch (e) {
+                    print(e);
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text('이메일과 비밀번호를 재확인 해주세요'),
+                        backgroundColor: Colors.red,
+                      ),
+                    );
+
+
+                  }
+                };
+                if(!isSignupScreen) {
                   _tryValidation();
+                  try {
+                  final newUser = await _authentication.signInWithEmailAndPassword(
+                    email: useremail, 
+                    password: userpassword
+                  );
+                  if (newUser.user != null) {
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => ChatScreen()));
+                  }
+                }catch (e) {
+                  print(e);
+                  }
+                }
                 },
                 child: Center(
                   child: Container(

@@ -1,5 +1,8 @@
 plugins {
     id "com.android.application"
+    // START: FlutterFire Configuration
+    id 'com.google.gms.google-services'
+    // END: FlutterFire Configuration
     id "kotlin-android"
     id "dev.flutter.flutter-gradle-plugin"
 }
@@ -36,7 +39,8 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.example.yummy_chat_lecture1"
+        // Firebase 설정과 일치하도록 applicationId 수정
+        applicationId "com.example.muichiroChatApp"
         // minSdkVersion과 targetSdkVersion을 Flutter의 권장 버전으로 설정합니다.
         minSdkVersion flutter.minSdkVersion
         targetSdkVersion flutter.targetSdkVersion
